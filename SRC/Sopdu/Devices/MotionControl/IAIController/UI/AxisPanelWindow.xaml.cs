@@ -30,6 +30,7 @@ namespace Sopdu.Devices.MotionControl.IAIController.UI
         {
             Axis axis = new DeltaEtherCATAxis(new PConAxis.PconControllerChannel(""), 0); // 替換為具體的 Axis 實現類別
 
+            axis.bIsEnable = true;
             this.DataContext = axis;
          
         }

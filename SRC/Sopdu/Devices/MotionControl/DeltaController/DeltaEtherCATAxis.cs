@@ -79,5 +79,10 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
                     PositionEnd = false;
             }
         }
+
+        public override void ServoOn(bool bEMOExit, bool isAutoOp = false)
+        {
+            Console.WriteLine("ServoOn");
+        }
     }
 }

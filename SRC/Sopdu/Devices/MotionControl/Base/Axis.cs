@@ -326,7 +326,7 @@ namespace Sopdu.Devices.MotionControl.Base
             
         }
 
-        public void ServoOn(bool bEMOExit, bool isAutoOp = false)
+        public virtual void ServoOn(bool bEMOExit, bool isAutoOp = false)
         {
             bIsEnable = false;
             CommandDoneEvent.Reset();

@@ -23,3 +23,6 @@
 /SRC/Test/obj/Debug
 /SRC/Test/bin/Debug
 /SRC/Sopdu/obj/Debug
+/SRC/Sopdu/obj/Release
+/SRC/Test/.vs
+/SRC/Test/obj/Release

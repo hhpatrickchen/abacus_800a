@@ -1,0 +1,214 @@
+﻿<Page x:Class="Sopdu.UI.PageRegionSetup"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:vpro="clr-namespace:Cognex.VisionPro.Display;assembly=Cognex.VisionPro.Display.Controls"
+      xmlns:vpro1="clr-namespace:Cognex.VisionPro;assembly=Cognex.VisionPro.Controls"
+      xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+      mc:Ignorable="d"
+	Title="PageRegionSetup">
+    <Grid>
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" FontSize="18" FontWeight="ExtraBlack" TabStripPlacement="Bottom">
+            <TabControl.Effect>
+                <DropShadowEffect />
+            </TabControl.Effect>
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="0,0,5,5" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left"
+                                        ContentSource="Header"
+                                        Margin="10,2" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Camera Settings">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="721*" />
+                        <ColumnDefinition Width="200*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="277*" />
+                            <RowDefinition Height="369*" />
+                            <RowDefinition Height="101*" />
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="2" Margin="20,2,20,2" Content="Locate Pattern" Click="Button_Click_3"></Button>
+                        <Button Grid.Row="1" Margin="20,2,0,2.2" Content="Grab Image" Click="Button_Click_8" x:Name="btngrabimg"></Button>
+                    </Grid>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="277*" />
+                            <RowDefinition Height="369*" />
+                            <RowDefinition Height="101*" />
+                        </Grid.RowDefinitions>
+                        <WindowsFormsHost Grid.Row="0">
+                            <vpro1:CogRecordDisplay x:Name="PatternRecDisplay"></vpro1:CogRecordDisplay>
+                        </WindowsFormsHost>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Run Acquired Image">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="79*" />
+                        <ColumnDefinition Width="18*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="277*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="101*" />
+                        </Grid.RowDefinitions>
+                        <WindowsFormsHost Grid.Row="0">
+                            <vpro:CogDisplay x:Name="MaskDisplay"></vpro:CogDisplay>
+                        </WindowsFormsHost>
+                        <WindowsFormsHost Grid.Row="1">
+                            <vpro:CogDisplay x:Name="BCRcpDisplay"></vpro:CogDisplay>
+                        </WindowsFormsHost>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="300*" />
+                            <RowDefinition Height="401*" />
+                        </Grid.RowDefinitions>
+
+                        <Button Content="Open Image File" Click="Test"   Grid.Row="1"></Button>
+                        <Button Content="Run" Click="Button_Click_10"   Grid.Row="2"></Button>
+
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Block Setup">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="79*" />
+                        <ColumnDefinition Width="18*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="277*" />
+                            <RowDefinition Height="369*" />
+                            <RowDefinition Height="101*" />
+                        </Grid.RowDefinitions>
+                        <WindowsFormsHost Grid.Row="0">
+                            <vpro:CogDisplay x:Name="SetupDisplay"></vpro:CogDisplay>
+                        </WindowsFormsHost>
+                        <WindowsFormsHost Grid.Row="1">
+                            <vpro:CogDisplay x:Name="RecipeDisplay"></vpro:CogDisplay>
+                        </WindowsFormsHost>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="300*" />
+                            <RowDefinition Height="401*" />
+                        </Grid.RowDefinitions>
+                        <Label Content="Select Block Location"></Label>
+                        <!--<ComboBox Name="cbBlockListSelect" Grid.Row="1"></ComboBox>-->
+                        <Button Content="Edit Param" Click="EditParam" Grid.Row="1"></Button>
+                        <Button Content="Fiducial Setup" Grid.Row="2" Click="Button_Click_4"></Button>
+                        <Button Content="Off Pocket Setup1" Grid.Row="3" Click="Button_Click_7" Visibility="Hidden"></Button>
+                        <!--<Button Content="Empty Pocket Search" Grid.Row="4" Click="Button_Click_6"></Button>-->
+                        <Button Content="DB Search" Grid.Row="4" Click="DBSearchBtn" Visibility="Hidden"></Button>
+                        <Button Content="Fiducial Setup2" Grid.Row="5" Click="Button_Click_9" Visibility="Hidden"></Button>
+                        <Button Content="Fiducial Search All" Grid.Row="6" Click="Button_Click_5"></Button>
+                        <Button Content="Save" Grid.Row="7" Click="Button_Click_6"></Button>
+                        <CheckBox Content="Enable Vision" Grid.Row="8" IsChecked="{Binding EnableVision}"/>
+                        <CheckBox Content="Enable Vision Debug" Grid.Row="9" IsChecked="{Binding EnableVisionDebug}" />
+                        <WindowsFormsHost Grid.Row="10" Margin="20,5,20,5">
+                            <vpro:CogDisplay x:Name="TumbnailDisplay"></vpro:CogDisplay>
+                        </WindowsFormsHost>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Recipe Management">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="157*" />
+                        <RowDefinition Height="225*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="382*" />
+                        <ColumnDefinition Width="160*" />
+                        <ColumnDefinition Width="300*" />
+                        <ColumnDefinition Width="160*" />
+                        <ColumnDefinition Width="649*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="2" Grid.Row="1" IsEnabled="{Binding SAEnabled}" Content="Create" Click="BtnCreateRecipe" ></Button>
+                    <Button Grid.Column="2" Grid.Row="3" Content="Load" Click="Button_Click_2" ></Button>
+                    <Button Grid.Column="2" Grid.Row="5" IsEnabled="{Binding SAEnabled}" Content="Remove" Click="Button_Click" ></Button>
+                    <!--<Button Grid.Column="2" Grid.Row="7" IsEnabled="{Binding SAEnabled}" Content="Edit LF Inv#" Click="Button_Click_1" ></Button>-->
+                    <DataGrid Name="gridRecipeList"  ItemsSource="{Binding RecipeList}"
+                              SelectionMode="Single"
+                              VerticalScrollBarVisibility="Auto" Grid.Column="0"  AutoGenerateColumns="False" IsReadOnly="True"
+                              Grid.Row="1" Grid.RowSpan="9" Margin="10,0,0,20" SelectionChanged="gridRecipeList_SelectionChanged">
+                        <!--<DataGrid.Columns>
+                            <DataGridTextColumn Header="Recipe Name"
+                      Binding="{Binding RecipeName}" Width="*" />
+                        </DataGrid.Columns>-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Recipe Name"
+                      Binding="{Binding }" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!--<DataGrid Name="gridLFList"
+                              SelectionMode="Single"
+                              VerticalScrollBarVisibility="Auto" Grid.Column="4"
+                              AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.RowSpan="9" Margin="0,0,10,20">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Associcated LF Inv #"
+                      Binding="{Binding LFInvList}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>-->
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

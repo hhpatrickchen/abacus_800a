@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net472</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<PackageId>Dct.UI</PackageId>
+		<Authors>WH</Authors>
+		<Owners>WH</Owners>
+		<PackageProjectUrl></PackageProjectUrl>
+		<RepositoryUrl></RepositoryUrl>
+		<Title>Dct.UI</Title>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+		<Version>1.0.0-pre1</Version>
+		<PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FreeSql.DbContext" Version="3.2.833" />
+		<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+	</ItemGroup>
+
+</Project>

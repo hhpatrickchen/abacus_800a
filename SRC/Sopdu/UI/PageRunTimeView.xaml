@@ -1,0 +1,318 @@
+﻿<Page x:Class="Sopdu.UI.PageRunTimeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:vpro="clr-namespace:Cognex.VisionPro.Display;assembly=Cognex.VisionPro.Display.Controls"
+       xmlns:vpro1="clr-namespace:Cognex.VisionPro;assembly=Cognex.VisionPro.Controls"
+      xmlns:led="clr-namespace:LedControl;assembly=LedControl"
+      xmlns:ValueConverters="clr-namespace:Sopdu.UI"
+      xmlns:Enum="clr-namespace:Sopdu.helper"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:secgempath ="clr-namespace:Sopdu.Devices.SecsGem.UI"
+      mc:Ignorable="d"
+      d:DesignHeight="800" d:DesignWidth="1024"
+	  Title="PageRunTimeView" Loaded="Page_Loaded">
+    <!--xmlns:MyEnumerations="clr-namespace:MyEnumerations"-->
+    <!--xmlns:MyEnumerations="clr-namespace:Sopdu.helper.UI.EnumDescriptionConverter"-->
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ObjectDataProvider x:Key="plcstate" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="Enum:MachineState" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <ValueConverters:VCMyEnumToString x:Key="vcMyEnumToString" />
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" FontSize="12" FontWeight="ExtraBlack" TabStripPlacement="Bottom">
+            <TabControl.Effect>
+                <DropShadowEffect />
+            </TabControl.Effect>
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="0,0,5,5" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left"
+                                        ContentSource="Header"
+                                        Margin="10,2" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Overview">
+                <Grid Background="#FFE5E5E5" Margin="10,2,-10.4,-1.8" Loaded="Grid_Loaded">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="100*" />
+                        <RowDefinition Height="100*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250*"/>
+                            <ColumnDefinition Width="743*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,667.351,330.8" Grid.RowSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" Content="Current TrayID : "></Label>
+                            <Label Grid.Column="1" Content="{Binding CurrentTrayID, FallbackValue='ANC123456'}" Grid.ColumnSpan="4" Margin="150,0,9.6,0"></Label>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*"/>
+                                <ColumnDefinition Width="60*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Visibility="{Binding GemCtrl.OPgemDisplayVisible}" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100*" />
+                                    <RowDefinition Height="100*" />
+                                    <RowDefinition Height="50*" />
+                                </Grid.RowDefinitions>
+                                <TextBox Grid.Row="0" Background="Yellow" BorderBrush="Transparent" Text="{Binding GemCtrl.ErrorDisplayMsg1}"></TextBox>
+                                <TextBox Grid.Row="1" Background="Yellow" BorderBrush="Transparent" Text="{Binding GemCtrl.MachineMsg}"></TextBox>
+                                <Button Grid.Row="2" Margin="193,10,273,10" Content="Clear" Background="Bisque" Click="ClearMsgClick" ></Button>
+                            </Grid>
+                            <!-- tmp remove-->
+                            <WindowsFormsHost  Grid.Column="0" Visibility="{Binding GemCtrl.DispgemDisplayVisible}">
+                                <vpro:CogDisplay x:Name="DispTray"></vpro:CogDisplay>
+                            </WindowsFormsHost>
+                            <WindowsFormsHost  Grid.Column="0" Visibility="Hidden">
+                                <vpro:CogDisplay x:Name="DispTraypro"></vpro:CogDisplay>
+                            </WindowsFormsHost>
+                            <Frame Grid.Column="1" x:Name="MiniLogFrame" VerticalAlignment="Stretch" />
+                        </Grid>
+                        <!-- tmp remove-->
+                        <!--Binding GemCtrl.OperatorDisp, FallbackValue=-->
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <!--tmpremove-->
+                        <WindowsFormsHost Grid.Row="1">
+                            <vpro1:CogRecordDisplay x:Name="DispStack"></vpro1:CogRecordDisplay>
+                        </WindowsFormsHost>
+
+                    </Grid>
+
+                    <Grid Grid.Column="1" Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="20*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <!--cather this for warning pop up display-->
+                    <Grid Grid.Column="2" Grid.Row="2" Visibility="{Binding pMaster.WarningDisplayVisible}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <!-- warning msg from eq-->
+                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Background="Yellow" BorderBrush="Transparent" Text="{Binding pMaster.sWarningMsg}" ></TextBox>
+                        <!-- warning msg from SECS GEM Host-->
+                        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="Yellow" BorderBrush="Transparent" Text="{Binding GemCtrl.ErrorDisplayMsg1}" ></TextBox>
+                        <Button Grid.Row="3" Grid.Column="1" Content="{Binding pMaster.RetryBtnText}" Visibility="{Binding pMaster.RetryBtnVisible}" Background="Bisque" Click="Button_Click_2"></Button>
+                        <Button Grid.Row="3" Grid.Column="2" Content="{Binding pMaster.IgnoreBtnText}" Visibility="{Binding pMaster.IgnoreBtnVisible}" Background="Bisque" Click="Button_Click_3"></Button>
+                    </Grid>
+                    <!--end of warning pop up display-->
+                    <Grid Grid.Column="2" Grid.Row="2" Visibility="{Binding pMaster.NormalDisplayVisible}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="20*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="1" Grid.Column="1" Content="Tray Stack Detail" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Carrier ID"></Label>
+                            <Label Grid.Row="1" Grid.Column="1" Content="Next Ht"></Label>
+                            <Label Grid.Row="2" Grid.Column="1" Content="Next ID"></Label>
+                            <Label Grid.Row="3" Grid.Column="1" Content="Input #"></Label>
+                            <Label Grid.Row="4" Grid.Column="1" Content="Output #"></Label>
+                            <Label Grid.Row="5" Grid.Column="1" Content="S01 Code"></Label>
+                            <Label Grid.Row="6" Grid.Column="1" Content="S02 Code"></Label>
+
+                            <Label Grid.Row="0" Grid.Column="2" Content="{Binding strCarrierID}"></Label>
+                            <Label Grid.Row="1" Grid.Column="2" Content="{Binding CarrierHt}"></Label>
+                            <Label Grid.Row="2" Grid.Column="2" Content="{Binding NextID}"></Label>
+                            <Label Grid.Row="3" Grid.Column="2" Content="{Binding IpTrayCount}"></Label>
+                            <Label Grid.Row="4" Grid.Column="2" Content="{Binding OpTrayCount}"></Label>
+                            <Label Grid.Row="5" Grid.Column="2" Content="{Binding S01Code}"></Label>
+                            <Label Grid.Row="6" Grid.Column="2" Content="{Binding S02Code}"></Label>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="1" Grid.Column="1" Content="Machine State" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="2" Grid.Column="1" Content="SECS GEM Mode" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="2" Grid.Column="2" Content="{Binding GemCtrl.gemComstate, FallbackValue='None'}" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="3" Grid.Column="1" Content="Current Recipe" VerticalAlignment="Center"></Label>
+                        <!--<Label Grid.Row="4" Grid.Column="1" Content="Carrier Tray ID" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="5" Grid.Column="1" Content="Total Tray Count" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="6" Grid.Column="1" Content="Current Total Units" VerticalAlignment="Center"></Label>-->
+                        <Label Grid.Row="3" Grid.Column="2" Content="{Binding menu.DefaultRecipe, FallbackValue='None'}" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="1" Grid.Column="2"  Content="{Binding pMaster.DisplayState.CurrentState, Converter={StaticResource vcMyEnumToString}}" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="4" Grid.Column="1" Content="P Unit Count" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="5" Grid.Column="1" Content="E Unit Count" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="6" Grid.Column="1" Content="X Unit Count" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="4" Grid.Column="2" Content="{Binding GoodUnitCnt}" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="5" Grid.Column="2" Content="{Binding EmptyUnitCnt}" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="6" Grid.Column="2" Content="{Binding XUnitCnt}" VerticalAlignment="Center"></Label>
+                        <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100*" />
+                                <RowDefinition Height="100*" />
+                                <RowDefinition Height="100*" />
+                                <RowDefinition Height="100*" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Input Loading Mode:" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                            <Label Grid.Row="1" Grid.Column="0" Content="{Binding menu.sIPMode, FallbackValue='None'}" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Ouput Unloading Mode:" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                            <Label Grid.Row="3" Grid.Column="0" Content="{Binding menu.sOPMode, FallbackValue='None'}" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                        </Grid>
+                        <Grid Grid.Row="4" Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Input" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="2" Content="Output" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        </Grid>
+                        <Grid Grid.Row="5" Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="SFA Signal" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                            <led:Led Grid.Row="0" Grid.Column="1" IsActive="{Binding menu.isIPSFARdy, Mode=OneWay}" ColorOn="Blue" ColorOff="Gray" ColorNull="White"></led:Led>
+                            <led:Led Grid.Row="0" Grid.Column="2" IsActive="{Binding menu.isOPSFARdy, Mode=OneWay}" ColorOn="Blue" ColorOff="Gray" ColorNull="White"></led:Led>
+                        </Grid>
+                        <Grid Grid.Row="6" Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="28*" />
+                                <ColumnDefinition Width="27*"/>
+                                <ColumnDefinition Width="55*" />
+                                <ColumnDefinition Width="54*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="OHT Signal" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,14,0,13"></Label>
+                            <led:Led Grid.Row="0" Grid.Column="2" IsActive="{Binding menu.isIPOHTRdy, Mode=OneWay}" ColorOn="Blue" ColorOff="Gray" ColorNull="White"></led:Led>
+                            <led:Led Grid.Row="0" Grid.Column="3" IsActive="{Binding menu.isOPOHTRdy, Mode=OneWay}" ColorOn="Blue" ColorOff="Gray" ColorNull="White"></led:Led>
+                        </Grid>
+                        <!--<Button  Grid.Row="7" Grid.Column="1" Content="Start" Click="Button_Click"></Button>
+                        <Button  Grid.Row="7" Grid.Column="2" Content="FireTrayRemove" Click="Button_Click_1"></Button>-->
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="SECSGEM">
+                <!-- use the custome user interface-->
+                <!--<StackPanel>-->
+                <secgempath:secsgemuserdisplay DataContext="{Binding Path= GemCtrl}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <!--</StackPanel>-->
+            </TabItem>
+            <TabItem Header="Log View" Initialized="TabItem_Initialized">
+                <!-- put system log here-->
+                <Frame x:Name="SystemLogFrame" />
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Page>

@@ -1,0 +1,269 @@
+﻿<Page x:Class="Sopdu.UI.ProfilerSetup"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:acq = "clr-namespace:Cognex.VisionPro;assembly=Cognex.VisionPro.Controls"
+      xmlns:vpro="clr-namespace:Cognex.VisionPro.Display;assembly=Cognex.VisionPro.Display.Controls"
+      xmlns:vpro1="clr-namespace:Cognex.VisionPro;assembly=Cognex.VisionPro.Controls"
+      xmlns:vpro5="clr-namespace:Cognex.VisionPro.Display;assembly=Cognex.VisionPro.Display.Controls"
+      xmlns:vqb="clr-namespace:Cognex.VisionPro.QuickBuild;assembly=Cognex.VisionPro.QuickBuild.Controls"
+      xmlns:vprotoolblock ="clr-namespace:Cognex.VisionPro.ToolBlock;assembly=Cognex.VisionPro.ToolGroup.Controls"
+      xmlns:ValueConverters="clr-namespace:Sopdu.UI"
+      xmlns:Enum="clr-namespace:Sopdu.helper"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:device ="clr-namespace:Sopdu.Devices.MotionControl.IAIController.UI"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:cognex="clr-namespace:Cognex.VisionPro3D;assembly=Cognex.VisionPro3D.Display.Controls"
+      mc:Ignorable="d"
+      d:DesignHeight="800" d:DesignWidth="1024"
+	Title="ProfilerSetup" Loaded="Page_Loaded">
+
+    <Grid>
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" FontSize="18" FontWeight="ExtraBlack" TabStripPlacement="Bottom">
+            <TabControl.Effect>
+                <DropShadowEffect />
+            </TabControl.Effect>
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="0,0,5,5" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left"
+                                        ContentSource="Header"
+                                        Margin="10,2" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <!--<TabItem Header="Axis Control">
+                <Grid Background="#FFE5E5E5" Margin="10,2,-10.4,-1.8">
+                    <device:AxisPanel x:Name="axisUI" ></device:AxisPanel>
+                </Grid>
+            </TabItem>-->
+            <TabItem Header="Image Setup">
+                <Grid Background="#FFE5E5E5" Margin="10,9,-10.4,-8.8">
+                    <WindowsFormsHost>
+                        
+                    <acq:CogAcqFifoEditV2 x:Name="imgacqctrl"></acq:CogAcqFifoEditV2>
+
+                    </WindowsFormsHost>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Run Time Display">
+                <Grid Background="#FFE5E5E5" Margin="10,9,-10.4,-8.8">
+                    <!--<WindowsFormsHost>
+                        -->
+                    <!--<acq:CogAcqFifoEditV2 x:Name="imgacqctrl"> </acq:CogAcqFifoEditV2>-->
+                    <!--
+                    </WindowsFormsHost>-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="23" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="20*" />
+                    </Grid.ColumnDefinitions>
+                    <cognex:Cog3DDisplayV2 x:Name="display3D" Grid.Row="0" Grid.Column="0" />
+                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="80*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                        </Grid.RowDefinitions>
+                        <CheckBox Content="Enable Debug" Grid.Row="8" IsChecked="{Binding EnableVisionDebug}"/>
+                        <CheckBox Content="Enable Vision" Grid.Row="9" IsChecked="{Binding EnableVision}"/>
+                        <Button Grid.Row="11" Grid.ColumnSpan="2" x:Name="btnRun1" Content="Run" Click="Button_Click_1"></Button>
+                        <Button Grid.Row="10" Grid.ColumnSpan="2" x:Name="btnAcq" Content="Acquire Image" Click="btnAcq_Click"></Button>
+                    </Grid>
+                    <!--<ScrollBar Grid.Row="1" Height="23" Maximum="0" Minimum="0" Value="0" x:Name="imageScroll" Orientation="Horizontal" SmallChange="1" ValueChanged="imageScroll_ValueChanged" />-->
+                </Grid>
+            </TabItem>
+            <TabItem Header="Setup">
+                <Grid Background="#FFE5E5E5" Margin="10,2,-10.4,-1.8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="80*" />
+                        <ColumnDefinition Width="20*" />
+
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="100*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <WindowsFormsHost Grid.Row="1" Grid.Column="1">
+                            <vpro5:CogDisplay x:Name="SetupDisplay"></vpro5:CogDisplay>
+                        </WindowsFormsHost>
+                        <WindowsFormsHost Grid.Row="2" Grid.Column="1">
+                            <vpro5:CogDisplay x:Name="RecipeDisplay"></vpro5:CogDisplay>
+                        </WindowsFormsHost>
+                    </Grid>
+                    <!--<Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="100*" />
+                        <RowDefinition Height="100*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>-->
+                    <!--<WindowsFormsHost Grid.Column="1">
+                        -->
+                    <!--<vqb:CogJobManagerEdit x:Name="jobmanager"></vqb:CogJobManagerEdit>-->
+                    <!--
+                    </WindowsFormsHost>-->
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="10*" />
+                           
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Run Parameters" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Min" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Max" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Level" />
+                        <Label Grid.Row="4" Grid.Column="0" Content="RPP" />
+                        <Label Grid.Row="5" Grid.Column="0" Content="Lapse (ms)" />
+                        <Label Grid.Row="5" Grid.Column="1" Content="{Binding razor.processtime}" />
+                        <Label Grid.Row="6" Grid.Column="0" Content="Rows" />
+                        <Label Grid.Row="6" Grid.Column="1" Content="{Binding razor.strpocketperrow}" />
+                        <Label Grid.Row="7" Grid.Column="0" Content="Column" />
+                        <Label Grid.Row="9" Grid.Column="0"  Content="Display Ref Ht" />
+                        <Label Grid.Row="10" Grid.Column="0" Content="Empty Disp" />
+                        <Label Grid.Row="11" Grid.Column="0" Content="Present Disp" />
+                        <Label Grid.Row="12" Grid.Column="0" Content="Bad Disp" />
+                        <Label Grid.Row="13" Grid.Column="0" Content="IPStk Engage Pos" />
+                        <TextBox Grid.Row="13" Grid.Column="1" Text="{Binding razor.engagePos}" />
+                        <Label Grid.Row="14" Grid.Column="0" Content="Pitch"  />
+                        <TextBox Grid.Row="14" Grid.Column="1" Text="{Binding razor.rcpPitch}" />
+                        <Label Grid.Row="7" Grid.Column="1" Content="{Binding razor.strpocketpercolumn}" />
+
+                        <Label Grid.Row="15" Grid.Column="0" Content="SensorToS1Finger"   />
+                        <TextBox Grid.Row="15" Grid.Column="1" Text="{Binding razor.SensorToS1Finger}" />
+                        <Label Grid.Row="16" Grid.Column="0" Content="SensorToS2Finger"   />
+                        <TextBox Grid.Row="16" Grid.Column="1" Text="{Binding razor.SensorToS2Finger}" />
+
+                        <Label Grid.Row="17" Grid.Column="0" Content="GapRange"   />
+                        <TextBox Grid.Row="17" Grid.Column="1" Text="{Binding razor.GapRange}" />
+
+                        <xctk:DoubleUpDown Grid.Column="1" Grid.Row="1" Increment="0.01"
+                        Width="80" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Value="{Binding razor.min}" />
+                        <xctk:DoubleUpDown Grid.Column="1" Grid.Row="2" Increment="0.01"
+                        Width="80" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center"
+                                           Value="{Binding razor.max}" />
+                        <xctk:DoubleUpDown Grid.Column="1" Grid.Row="3" Increment="0.01"
+                        Width="80" HorizontalAlignment="Left" Height="25"
+                                           VerticalAlignment="Center" Value="{Binding razor.level}" />
+                        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="4" Increment="1"
+                        Width="80" HorizontalAlignment="Left" Height="25"
+                                           VerticalAlignment="Center" Value="{Binding razor.pocketperrow}" />
+
+                        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="9" Increment="1"
+                        Width="80" HorizontalAlignment="Left" Height="25"
+                                           VerticalAlignment="Center" Value="{Binding razor.dispheight}" />
+                        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="10" Increment="1"
+                        Width="80" HorizontalAlignment="Left" Height="25"
+                                           VerticalAlignment="Center" Value="{Binding razor.dispZEmpty}" />
+                        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="11" Increment="1"
+                        Width="80" HorizontalAlignment="Left" Height="25"
+                                           VerticalAlignment="Center" Value="{Binding razor.dispZGood}" />
+                        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="12" Increment="1"
+                        Width="80" HorizontalAlignment="Left" Height="25"
+                                           VerticalAlignment="Center" Value="{Binding razor.dispZErr}" />
+
+                        <Button Grid.Row="19" Grid.ColumnSpan="2" Content="Set Image File" Click="Button_Click_3" />
+                        <Button x:Name="VisionSetup" Grid.Row="20" Grid.ColumnSpan="2" IsEnabled="True" Content="VisionSetup" Click="Button_Click_2" />
+                        <Button Grid.Row="21" Grid.ColumnSpan="2" x:Name="btnRun" Content="Run" Click="Button_Click_1"></Button>
+                        <Button Grid.Row="22" Grid.ColumnSpan="2" Content="Save" Click="Button_Click"></Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Recipe Management">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="157*" />
+                        <RowDefinition Height="225*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="382*" />
+                        <ColumnDefinition Width="160*" />
+                        <ColumnDefinition Width="300*" />
+                        <ColumnDefinition Width="160*" />
+                        <ColumnDefinition Width="649*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="2" Grid.Row="1" IsEnabled="{Binding SAEnabled}" Content="Create" Click="BtnCreateRecipe" ></Button>
+                    <Button Grid.Column="2" Grid.Row="3" Content="Load" Click="BtnLoadRecipe" ></Button>
+                    <Button Grid.Column="2" Grid.Row="5" IsEnabled="{Binding SAEnabled}" Content="Remove" Click="BtnRemoveRecipe" ></Button>
+                    <DataGrid Name="gridRecipeList"  ItemsSource="{Binding RecipeList}"
+                              SelectionMode="Single"
+                              VerticalScrollBarVisibility="Auto" Grid.Column="0"  AutoGenerateColumns="False" IsReadOnly="True"
+                              Grid.Row="1" Grid.RowSpan="9" Margin="10,0,0,20" SelectionChanged="gridRecipeList_SelectionChanged">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Recipe Name"
+                      Binding="{Binding }" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

@@ -1,0 +1,85 @@
+﻿<Page x:Class="Sopdu.UI.MainBtnPanel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:UserManagement="clr-namespace:UserManagement;assembly=UserManagement"
+      mc:Ignorable="d"
+      d:DesignHeight="50" d:DesignWidth="1000"
+	Title="MainBtnPanel" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Style x:Key="CircleButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border CornerRadius="25"  Background="#F0FFF0">
+                            <Image Source="/Images/username.png" Stretch="Fill"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="11*" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="BtnRunTime"  ToolTip="Enter Run Lot Menu" Style="{DynamicResource RoundCorner}" Grid.Row="1" Grid.Column="1" Click="BtnRunTime_Click">
+            <Border BorderThickness="0" BorderBrush="#FF005DAA" Width="100" Height="40">
+                <TextBlock FontFamily="Consolas" FontSize="16" FontWeight="Bold" Foreground="#FF005DAA" VerticalAlignment="Center" TextAlignment="Center" Text="Runtime&#x0a;View" />
+            </Border>
+        </Button>
+
+        <Button x:Name="BtnMaintenance" IsEnabled="True" ToolTip="Go To System Setup" Style="{DynamicResource RoundCorner}" Grid.Row="1" Grid.Column="3" Click="BtnMaintenance_Click">
+            <Border BorderThickness="0" BorderBrush="#FF005DAA" Width="100" Height="40">
+                <TextBlock FontFamily="Consolas" FontSize="16" FontWeight="Bold" Foreground="#FF005DAA" VerticalAlignment="Center" TextAlignment="Center" Text="Maintenance&#x0a;View" />
+            </Border>
+        </Button>
+
+        <Button x:Name="BtnLogOut"  ToolTip="Shut Down Application"  Style="{DynamicResource RoundCorner}" Grid.Row="1" Grid.Column="5" Click="BtnLogOut_Click">
+            <Border BorderThickness="0" BorderBrush="#FF005DAA" Width="100" Height="40">
+                <TextBlock FontFamily="Consolas" FontSize="16" FontWeight="Bold" Foreground="#FF005DAA" VerticalAlignment="Center" TextAlignment="Center" Text="Shut Down" />
+            </Border>
+        </Button>
+
+        <Button x:Name="ManualAppoinment"  ToolTip="Shut Down Application"  Style="{DynamicResource RoundCorner}" Grid.Row="1" Grid.Column="7" Click="BtnManualAppointment_Click">
+            <Border BorderThickness="0" BorderBrush="#FF005DAA" Width="157" Height="32">
+                <TextBlock FontFamily="Consolas" FontSize="16" FontWeight="Bold" Foreground="{Binding ForegroundColor}" VerticalAlignment="Center" TextAlignment="Center" Text="Manual reservation" Height="20" Margin="-6,0,-12,0" />
+            </Border>
+        </Button>
+
+        <Button x:Name="ManualPause"  ToolTip="Pause Machine"  Style="{DynamicResource RoundCorner}" Grid.Row="1" Grid.Column="9" Click="BtnPause_Click">
+            <Border BorderThickness="0" BorderBrush="#FF005DAA" Width="82" Height="32">
+                <TextBlock FontFamily="Consolas" FontSize="16" FontWeight="Bold" Foreground="{Binding ForegroundColor}" VerticalAlignment="Center" TextAlignment="Center" Text="Pause" Height="20" Margin="0" />
+            </Border>
+        </Button>
+
+        <Button x:Name="AlarmStatistic"  ToolTip="Statistic"  Style="{DynamicResource RoundCorner}" Grid.Row="1" Grid.Column="11" Click="BtnAlarmStatistic_Click">
+            <Border BorderThickness="0" BorderBrush="#FF005DAA" Width="140" Height="32">
+                <TextBlock FontFamily="Consolas" FontSize="16" FontWeight="Bold" Foreground="{Binding ForegroundColor}" VerticalAlignment="Center" TextAlignment="Center" Text="Statistic" Height="20" Margin="-6,0,-12,0" />
+            </Border>
+        </Button>
+
+        <UserManagement:UserControlTag VerticalAlignment="Center" Grid.Row="1" Grid.Column="13" Name="UserManagementControl1"/>
+    </Grid>
+
+</Page>

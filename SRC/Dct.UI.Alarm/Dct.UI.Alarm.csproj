@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net472</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<GitInfoReportImportance>high</GitInfoReportImportance>
+		<PackageId>Dct.UI.Alarm</PackageId>
+		<Authors>WH</Authors>
+		<Owners>WH</Owners>
+		<PackageProjectUrl></PackageProjectUrl>
+		<RepositoryUrl></RepositoryUrl>
+		<Title>Dct.UI.Alarm</Title>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+		<Version>1.0.0-pre1</Version>
+		<PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="FreeSql.DbContext" Version="3.2.833" />
+	  <PackageReference Include="HandyControl" Version="3.5.1" />
+	  <PackageReference Include="HandyControl.Lang.en" Version="3.5.1" />
+	  <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Dct.Models\Dct.Models.csproj" />
+	  <ProjectReference Include="..\Dct.UI\Dct.UI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+
+</Project>

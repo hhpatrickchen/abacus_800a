@@ -1,0 +1,665 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1BADAE05-9CB1-4AA2-B79C-033A754C6B0F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sopdu</RootNamespace>
+    <AssemblyName>Sopdu</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Basler.Pylon, Version=1.1.0.0, Culture=neutral, PublicKeyToken=e389355f398382ab, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Basler\pylon 5\Development\Assemblies\Basler.Pylon\x64\Basler.Pylon.dll</HintPath>
+    </Reference>
+    <Reference Include="Cognex.VisionPro, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Blob, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.CalibFix, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Caliper, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Core, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Cognex.VisionPro.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.CorePlus, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Database, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505" />
+    <Reference Include="Cognex.VisionPro.Dimensioning, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Display.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.ID, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.ImageFile, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.ImageFile.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.ImageProcessing, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.ImageProcessing.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Inspection, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505" />
+    <Reference Include="Cognex.VisionPro.Inspection.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505" />
+    <Reference Include="Cognex.VisionPro.Interop.Core">
+      <HintPath>..\..\DEP\Cognex.VisionPro.Interop.Core.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.PixelMap, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.PMAlign, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.PMAlign.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.QuickBuild.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.QuickBuild.Core, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.ToolGroup, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.ToolGroup.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro3D, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro3D.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro3D.Core, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro3D.Display.Controls, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro3D.Graphic, Version=59.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="DALSA.SaperaLT.SapClassBasic">
+      <HintPath>bin\DALSA.SaperaLT.SapClassBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeSql, Version=3.2.833.0, Culture=neutral, PublicKeyToken=a33928e5d4a4b39c, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSql.3.2.833\lib\net451\FreeSql.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeSql.DbContext, Version=3.2.833.0, Culture=neutral, PublicKeyToken=d6971b25f8f033dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSql.DbContext.3.2.833\lib\net45\FreeSql.DbContext.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeSql.Provider.Sqlite, Version=3.2.833.0, Culture=neutral, PublicKeyToken=5800863e689c9dd8, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSql.Provider.Sqlite.3.2.833\lib\net45\FreeSql.Provider.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeSql.Provider.SqliteCore, Version=3.2.833.0, Culture=neutral, PublicKeyToken=1a113ae92d6ad3be, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSql.Provider.SqliteCore.3.2.833\lib\netstandard2.0\FreeSql.Provider.SqliteCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeSql.Repository, Version=3.2.833.0, Culture=neutral, PublicKeyToken=e2c05379863de526, processorArchitecture=MSIL">
+      <HintPath>..\packages\FreeSql.Repository.3.2.833\lib\net45\FreeSql.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="HandyControl, Version=3.5.1.0, Culture=neutral, PublicKeyToken=45be8712787a1e5b, processorArchitecture=MSIL">
+      <HintPath>..\packages\HandyControl.3.5.1\lib\net48\HandyControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Application.Common">
+      <HintPath>bin\Insphere.Connectivity.Application.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Application.Exceptions">
+      <HintPath>bin\Insphere.Connectivity.Application.Exceptions.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Application.MessageServices">
+      <HintPath>bin\Insphere.Connectivity.Application.MessageServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Application.Objects">
+      <HintPath>bin\Insphere.Connectivity.Application.Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Common">
+      <HintPath>bin\Insphere.Connectivity.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Common.Installer">
+      <HintPath>bin\Insphere.Connectivity.Common.Installer.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Common.Lkm">
+      <HintPath>bin\Insphere.Connectivity.Common.Lkm.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Common.Serialization">
+      <HintPath>bin\Insphere.Connectivity.Common.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Common.ToolModel">
+      <HintPath>bin\Insphere.Connectivity.Common.ToolModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Compiler">
+      <HintPath>bin\Insphere.Connectivity.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Compiler.Common">
+      <HintPath>bin\Insphere.Connectivity.Compiler.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Compiler.Protocols.RS232">
+      <HintPath>bin\Insphere.Connectivity.Compiler.Protocols.RS232.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.Compiler.Protocols.TcpSecsSniffer">
+      <HintPath>bin\Insphere.Connectivity.Compiler.Protocols.TcpSecsSniffer.dll</HintPath>
+    </Reference>
+    <Reference Include="Insphere.Connectivity.SecsToHost.Net">
+      <HintPath>bin\Insphere.Connectivity.SecsToHost.Net.DLL</HintPath>
+    </Reference>
+    <Reference Include="LedControl">
+      <HintPath>bin\LedControl.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net4">
+      <HintPath>C:\Program Files\INSPHERE TECHNOLOGY\SecsToHost.Net 3.0 SDK\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Sqlite, Version=6.0.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Sqlite.Core.6.0.4\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="MyLib, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\MyLib.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core, Version=2.0.6.1341, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.core.2.0.6\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UserManagement">
+      <HintPath>..\..\DEP\UserManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>bin\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Devices\CameraLink\DalsaCameraLink.cs" />
+    <Compile Include="Devices\IOModule\IOTool.cs" />
+    <Compile Include="Devices\KeyenceDistanceSensor\DistanceSensor.cs" />
+    <Compile Include="Devices\Vision\Cameractrl.xaml.cs">
+      <DependentUpon>Cameractrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\Cylinders\UI\CyclinderPanel.xaml.cs">
+      <DependentUpon>CyclinderPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\IOModule\UI\InputDisplayPanel.xaml.cs">
+      <DependentUpon>InputDisplayPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\IOModule\UI\OutputDisplayPanel.xaml.cs">
+      <DependentUpon>OutputDisplayPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\MotionControl\IAIController\UI\EditPositionPopup.xaml.cs">
+      <DependentUpon>EditPositionPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\SecsGem\EqSecGem.cs" />
+    <Compile Include="Devices\SecsGem\MapData.cs" />
+    <Compile Include="Devices\SecsGem\UI\secsgemuserdisplay.xaml.cs">
+      <DependentUpon>secsgemuserdisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\Vision\cameraparam.xaml.cs">
+      <DependentUpon>cameraparam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\Vision\CarrierMapUI.xaml.cs">
+      <DependentUpon>CarrierMapUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\Vision\SingleBarCodeUI.xaml.cs">
+      <DependentUpon>SingleBarCodeUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\Vision\TrayPositionUI.xaml.cs">
+      <DependentUpon>TrayPositionUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\Vision\UsbCamera.cs" />
+    <Compile Include="helper\CMsgClass.cs" />
+    <Compile Include="helper\DBAccess.cs" />
+    <Compile Include="helper\Process.cs" />
+    <Compile Include="helper\ProcessMaster.cs" />
+    <Compile Include="helper\UI\ProcessModulePanel.xaml.cs">
+      <DependentUpon>ProcessModulePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessApps\ImgProcessing\Razor.cs" />
+    <Compile Include="ProcessApps\ImgProcessing\TrayPocketInpsection.cs" />
+    <Compile Include="ProcessApps\main\MenuObj.cs" />
+    <Compile Include="ProcessApps\ProcessModules\ImageProcessor.cs" />
+    <Compile Include="ProcessApps\ProcessModules\InputCV.cs" />
+    <Compile Include="ProcessApps\ProcessModules\LinScanAcqProcess.cs" />
+    <Compile Include="ProcessApps\ProcessModules\OutputCV.cs" />
+    <Compile Include="ProcessApps\ProcessModules\OutputCVCommunication.cs" />
+    <Compile Include="ProcessApps\ProcessModules\OutputStacker.cs" />
+    <Compile Include="ProcessApps\ProcessModules\ShutterUnit.cs" />
+    <Compile Include="SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StripMapVision\StripBlock.cs" />
+    <Compile Include="UI\FrmAllDIO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmAllDIO.designer.cs">
+      <DependentUpon>FrmAllDIO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmImageFileTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmImageFileTool.Designer.cs">
+      <DependentUpon>frmImageFileTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmKeyenceSensor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmKeyenceSensor.Designer.cs">
+      <DependentUpon>frmKeyenceSensor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmModeOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmModeOption.designer.cs">
+      <DependentUpon>FrmModeOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmPassword.Designer.cs">
+      <DependentUpon>frmPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmtoolgroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmtoolgroup.Designer.cs">
+      <DependentUpon>frmtoolgroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\InputStackerCameraPage.xaml.cs">
+      <DependentUpon>InputStackerCameraPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LogControlPanel.xaml.cs">
+      <DependentUpon>LogControlPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LogPanel.xaml.cs">
+      <DependentUpon>LogPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LogViewPanel.xaml.cs">
+      <DependentUpon>LogViewPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MiniLog.xaml.cs">
+      <DependentUpon>MiniLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PageModuleMaintanance.xaml.cs">
+      <DependentUpon>PageModuleMaintanance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PatternSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PatternSearch.Designer.cs">
+      <DependentUpon>PatternSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmSearchTrain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmSearchTrain.Designer.cs">
+      <DependentUpon>frmSearchTrain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainBtnPanel.xaml.cs">
+      <DependentUpon>MainBtnPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PageRegionSetup.xaml.cs">
+      <DependentUpon>PageRegionSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PageRunTimeView.xaml.cs">
+      <DependentUpon>PageRunTimeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\popups\LFInvDataEdit.xaml.cs">
+      <DependentUpon>LFInvDataEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\popups\LFInvDataEntry.xaml.cs">
+      <DependentUpon>LFInvDataEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\popups\NewRecipeEntry.xaml.cs">
+      <DependentUpon>NewRecipeEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\popups\ParamEdit.xaml.cs">
+      <DependentUpon>ParamEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\popups\PMAlignControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\popups\PMAlignControl.Designer.cs">
+      <DependentUpon>PMAlignControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\popups\usrctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\popups\usrctrl.Designer.cs">
+      <DependentUpon>usrctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProfilerSetup.xaml.cs">
+      <DependentUpon>ProfilerSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RecipeControl.xaml.cs">
+      <DependentUpon>RecipeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\testform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\testform.Designer.cs">
+      <DependentUpon>testform.cs</DependentUpon>
+    </Compile>
+    <Page Include="Devices\Vision\Cameractrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\Cylinders\UI\CyclinderPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\IOModule\UI\InputDisplayPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\IOModule\UI\OutputDisplayPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\MotionControl\Base\UI\AxisPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\MotionControl\IAIController\UI\AxisPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\MotionControl\IAIController\UI\EditPositionPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\SecsGem\UI\secsgemuserdisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\Vision\cameraparam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\Vision\CarrierMapUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\Vision\SingleBarCodeUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices\Vision\TrayPositionUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="helper\UI\ProcessModulePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Devices\MotionControl\IAIController\UI\AxisPanel.xaml.cs">
+      <DependentUpon>AxisPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessApps\main\MainApp.cs" />
+    <Compile Include="Devices\Base\TCPTIPTelnet.cs" />
+    <Compile Include="Devices\Cylinders\soloniod.cs" />
+    <Compile Include="Devices\GenericDevice.cs" />
+    <Compile Include="Devices\IOModule\IODirectories.cs" />
+    <Compile Include="Devices\IOModule\IOController.cs" />
+    <Compile Include="Devices\IOModule\DiscreteIO.cs" />
+    <Compile Include="Devices\IOModule\SystemIO.cs" />
+    <Compile Include="Devices\MotionControl\Base\Axis.cs" />
+    <Compile Include="Devices\MotionControl\Base\AxisPosition.cs" />
+    <Compile Include="Devices\MotionControl\Base\UI\AxisPanel.xaml.cs">
+      <DependentUpon>AxisPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\MotionControl\IAIController\PConAxis\PconAxis.cs" />
+    <Compile Include="Devices\MotionControl\IAIController\PConAxis\PConController.cs" />
+    <Compile Include="helper\GenericRecipe.cs" />
+    <Compile Include="helper\GenericState.cs" />
+    <Compile Include="helper\GenericStateEngine.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resource\OfficeBlueSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\InputStackerCameraPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\LogControlPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\LogPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\LogViewPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\MainBtnPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MiniLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\PageModuleMaintanance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\PageRegionSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\PageRunTimeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\popups\LFInvDataEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\popups\LFInvDataEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\popups\NewRecipeEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\popups\ParamEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ProfilerSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\RecipeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ProcessApps\ProcessModules\ProcessInputStacker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmAllDIO.resx">
+      <DependentUpon>FrmAllDIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmImageFileTool.resx">
+      <DependentUpon>frmImageFileTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmKeyenceSensor.resx">
+      <DependentUpon>frmKeyenceSensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmModeOption.resx">
+      <DependentUpon>FrmModeOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmPassword.resx">
+      <DependentUpon>frmPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmtoolgroup.resx">
+      <DependentUpon>frmtoolgroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PatternSearch.resx">
+      <DependentUpon>PatternSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmSearchTrain.resx">
+      <DependentUpon>frmSearchTrain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\popups\PMAlignControl.resx">
+      <DependentUpon>PMAlignControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\testform.resx">
+      <DependentUpon>testform.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="applications.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DragInsert.png" />
+    <Resource Include="Images\Error.png" />
+    <Resource Include="Images\Info.png" />
+    <Resource Include="Images\Running.png" />
+    <Resource Include="Images\Success.png" />
+    <Resource Include="Images\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\splashimg\abacus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\password.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\UserImagegray.png" />
+    <Resource Include="Images\UserImageGreen.png" />
+    <Resource Include="Images\username.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dct.Models\Dct.Models.csproj">
+      <Project>{2bb68dc4-b845-4fd8-b029-34af6c822126}</Project>
+      <Name>Dct.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dct.UI.Alarm\Dct.UI.Alarm.csproj">
+      <Project>{c249c383-2b12-48a7-819b-1beb2d643111}</Project>
+      <Name>Dct.UI.Alarm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dct.UI\Dct.UI.csproj">
+      <Project>{79b65de4-4aa8-4024-afe4-68890e1e4fe9}</Project>
+      <Name>Dct.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModbusTcp\ModbusTcp.csproj">
+      <Project>{77016135-b58b-4e96-830c-d37a14982d0d}</Project>
+      <Name>ModbusTcp</Name>
+    </ProjectReference>
+    <ProjectReference Include="LogPanel\LogPanel.csproj">
+      <Project>{B512F15F-1931-4409-B2AA-D2E2B79DA093}</Project>
+      <Name>LogPanel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

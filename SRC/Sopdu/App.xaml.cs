@@ -30,19 +30,23 @@ namespace Sopdu
                 Application.Current.Shutdown();
                 return;
             }
-            Splasher.Splash = new SplashScreen();
-            Splasher.ShowSplash();
-            MainWindow mainWindow;
-            try
-            {
-                mainWindow = new MainWindow();
-                Splasher.CloseSplash();
-                mainWindow.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString()); Splasher.CloseSplash();
-            }
+
+            var axisPanelWindow = new Sopdu.Devices.MotionControl.IAIController.UI.AxisPanelWindow();
+            axisPanelWindow.Show();
+
+            //Splasher.Splash = new SplashScreen();
+            //Splasher.ShowSplash();
+            //MainWindow mainWindow;
+            //try
+            //{
+            //    mainWindow = new MainWindow();
+            //    Splasher.CloseSplash();
+            //    mainWindow.Show();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString()); Splasher.CloseSplash();
+            //}
         }
     }
 }

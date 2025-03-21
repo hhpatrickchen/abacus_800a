@@ -423,160 +423,160 @@ namespace Sopdu.Devices.MotionControl.IAIController.PConAxis
             return result;
         }
 
-        public int PresetSingleRegister(byte axis, Register register, object value)
-        {
-            int result = 0;
-            for (int i = 1; i <= RETRY_ATTEMPTS; i++)
-            {
-                string message = String.Format("{0:X2}{1:X4}{2:X4}", (byte)Function.PresetSingleRegister, (ushort)register, value);
-                result = Write(axis, message, out message);
-                if (result != 0)
-                {
-                    LastException = new Exception("PresetSingleRegister Write", LastException);
-                    continue;
-                }
-                string readMessage;
-                result = Read(out readMessage);
-                if (result != 0)
-                {
-                    LastException = new Exception("PresetSingleRegister Read", LastException);
-                    continue;
-                }
-                if (!message.Equals(readMessage))
-                {
-                    result = -2001;
-                    // If the change is successful, the response message will be the same as the query.
-                    // If invalid data is sent, an exception response (refer to section 7) will be returned, or no response will be returned.
-                    LastException = new Exception("Invalid PresetSingleRegister Response");
-                    continue;
-                }
-                LastException = null;
-                break;
-            }
-            return result;
-        }
+        //public int PresetSingleRegister(byte axis, Register register, object value)
+        //{
+        //    int result = 0;
+        //    for (int i = 1; i <= RETRY_ATTEMPTS; i++)
+        //    {
+        //        string message = String.Format("{0:X2}{1:X4}{2:X4}", (byte)Function.PresetSingleRegister, (ushort)register, value);
+        //        result = Write(axis, message, out message);
+        //        if (result != 0)
+        //        {
+        //            LastException = new Exception("PresetSingleRegister Write", LastException);
+        //            continue;
+        //        }
+        //        string readMessage;
+        //        result = Read(out readMessage);
+        //        if (result != 0)
+        //        {
+        //            LastException = new Exception("PresetSingleRegister Read", LastException);
+        //            continue;
+        //        }
+        //        if (!message.Equals(readMessage))
+        //        {
+        //            result = -2001;
+        //            // If the change is successful, the response message will be the same as the query.
+        //            // If invalid data is sent, an exception response (refer to section 7) will be returned, or no response will be returned.
+        //            LastException = new Exception("Invalid PresetSingleRegister Response");
+        //            continue;
+        //        }
+        //        LastException = null;
+        //        break;
+        //    }
+        //    return result;
+        //}
 
-        public int ReadHoldingRegister(byte axis, Register register, out object value)
-        {
-            int result = 0;
-            value = -1;
-            for (int i = 1; i <= RETRY_ATTEMPTS; i++)
-            {
-                string message = String.Format("{0:X2}{1:X4}{2:X4}", (byte)Function.ReadHoldingRegisters, (ushort)register, register.GetSize());
-                result = Write(axis, message, out message);
-                if (result != 0)
-                {
-                    LastException = new Exception("ReadHoldingRegister Write", LastException);
-                    continue;
-                }
-                string readMessage;
-                result = Read(out readMessage);
-                if (result != 0)
-                {
-                    LastException = new Exception("ReadHoldingRegister Read", LastException);
-                    continue;
-                }
-                // Parsing response
-                try
-                {
-                    int readLength = Convert.ToInt32(readMessage.Substring(5, 2), 16);
-                    if (readLength != (2 * register.GetSize()))
-                    {
-                        result = -2001;
-                        LastException = new Exception("ReadHoldingRegister Length Mismatch", LastException);
-                        continue;
-                    }
-                    string readValue = readMessage.Substring(7, 2 * readLength);
-                    if (register.GetSize() == 1)
-                    {
-                        if (register.IsSigned())
-                        {
-                            value = Convert.ToInt16(readValue, 16);
-                        }
-                        else
-                        {
-                            value = Convert.ToUInt16(readValue, 16);
-                        }
-                    }
-                    else if (register.GetSize() == 2)
-                    {
-                        if (register.IsSigned())
-                        {
-                            value = Convert.ToInt32(readValue, 16);
-                        }
-                        else
-                        {
-                            value = Convert.ToUInt32(readValue, 16);
-                        }
-                    }
-                    else
-                    {
-                        result = -2002;
-                        LastException = new ArgumentException("ReadHoldingRegister Register Assert");
-                        continue;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    result = -2003;
-                    LastException = new Exception("ReadHoldingRegister Parsing)", ex);
-                    continue;
-                }
-                LastException = null;
-                break;
-            }
-            return result;
-        }
+        //public int ReadHoldingRegister(byte axis, Register register, out object value)
+        //{
+        //    int result = 0;
+        //    value = -1;
+        //    for (int i = 1; i <= RETRY_ATTEMPTS; i++)
+        //    {
+        //        string message = String.Format("{0:X2}{1:X4}{2:X4}", (byte)Function.ReadHoldingRegisters, (ushort)register, register.GetSize());
+        //        result = Write(axis, message, out message);
+        //        if (result != 0)
+        //        {
+        //            LastException = new Exception("ReadHoldingRegister Write", LastException);
+        //            continue;
+        //        }
+        //        string readMessage;
+        //        result = Read(out readMessage);
+        //        if (result != 0)
+        //        {
+        //            LastException = new Exception("ReadHoldingRegister Read", LastException);
+        //            continue;
+        //        }
+        //        // Parsing response
+        //        try
+        //        {
+        //            int readLength = Convert.ToInt32(readMessage.Substring(5, 2), 16);
+        //            if (readLength != (2 * register.GetSize()))
+        //            {
+        //                result = -2001;
+        //                LastException = new Exception("ReadHoldingRegister Length Mismatch", LastException);
+        //                continue;
+        //            }
+        //            string readValue = readMessage.Substring(7, 2 * readLength);
+        //            if (register.GetSize() == 1)
+        //            {
+        //                if (register.IsSigned())
+        //                {
+        //                    value = Convert.ToInt16(readValue, 16);
+        //                }
+        //                else
+        //                {
+        //                    value = Convert.ToUInt16(readValue, 16);
+        //                }
+        //            }
+        //            else if (register.GetSize() == 2)
+        //            {
+        //                if (register.IsSigned())
+        //                {
+        //                    value = Convert.ToInt32(readValue, 16);
+        //                }
+        //                else
+        //                {
+        //                    value = Convert.ToUInt32(readValue, 16);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                result = -2002;
+        //                LastException = new ArgumentException("ReadHoldingRegister Register Assert");
+        //                continue;
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            result = -2003;
+        //            LastException = new Exception("ReadHoldingRegister Parsing)", ex);
+        //            continue;
+        //        }
+        //        LastException = null;
+        //        break;
+        //    }
+        //    return result;
+        //}
 
-        public int ReadMultipleRegisters(byte axis, Register register, ushort length, out ushort[] value)
-        {
-            int result = 0;
-            value = null;
-            for (int i = 1; i <= RETRY_ATTEMPTS; i++)
-            {
-                string message = String.Format("{0:X2}{1:X4}{2:X4}", (byte)Function.ReadHoldingRegisters, (ushort)register, length);
-                result = Write(axis, message, out message);
-                if (result != 0)
-                {
-                    LastException = new Exception("ReadMultipleRegisters Write", LastException);
-                    continue;
-                }
-                string readMessage;
-                result = Read(out readMessage);
-                if (result != 0)
-                {
-                    LastException = new Exception("ReadMultipleRegisters Read", LastException);
-                    continue;
-                }
-                // Parsing response
-                try
-                {
-                    int readLength = Convert.ToInt32(readMessage.Substring(5, 2), 16);
-                    // readLength is count of bytes, length is count of words
-                    if (readLength != (2 * length))
-                    {
-                        result = -2001;
-                        LastException = new Exception("ReadMultipleRegisters Length Mismatch", LastException);
-                        continue;
-                    }
-                    ushort[] readData = new ushort[length];
-                    for (int j = 0; j < length; j++)
-                    {
-                        readData[j] = Convert.ToUInt16(readMessage.Substring(7 + (4 * j), 4), 16);
-                    }
-                    value = readData;
-                }
-                catch (Exception ex)
-                {
-                    result = -2002;
-                    LastException = new Exception("ReadMultipleRegisters Parsing)", ex);
-                    continue;
-                }
-                LastException = null;
-                break;
-            }
-            return result;
-        }
+        //public int ReadMultipleRegisters(byte axis, Register register, ushort length, out ushort[] value)
+        //{
+        //    int result = 0;
+        //    value = null;
+        //    for (int i = 1; i <= RETRY_ATTEMPTS; i++)
+        //    {
+        //        string message = String.Format("{0:X2}{1:X4}{2:X4}", (byte)Function.ReadHoldingRegisters, (ushort)register, length);
+        //        result = Write(axis, message, out message);
+        //        if (result != 0)
+        //        {
+        //            LastException = new Exception("ReadMultipleRegisters Write", LastException);
+        //            continue;
+        //        }
+        //        string readMessage;
+        //        result = Read(out readMessage);
+        //        if (result != 0)
+        //        {
+        //            LastException = new Exception("ReadMultipleRegisters Read", LastException);
+        //            continue;
+        //        }
+        //        // Parsing response
+        //        try
+        //        {
+        //            int readLength = Convert.ToInt32(readMessage.Substring(5, 2), 16);
+        //            // readLength is count of bytes, length is count of words
+        //            if (readLength != (2 * length))
+        //            {
+        //                result = -2001;
+        //                LastException = new Exception("ReadMultipleRegisters Length Mismatch", LastException);
+        //                continue;
+        //            }
+        //            ushort[] readData = new ushort[length];
+        //            for (int j = 0; j < length; j++)
+        //            {
+        //                readData[j] = Convert.ToUInt16(readMessage.Substring(7 + (4 * j), 4), 16);
+        //            }
+        //            value = readData;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            result = -2002;
+        //            LastException = new Exception("ReadMultipleRegisters Parsing)", ex);
+        //            continue;
+        //        }
+        //        LastException = null;
+        //        break;
+        //    }
+        //    return result;
+        //}
 
         public int Read(out string readMessage)
         {

@@ -216,6 +216,9 @@
     <Compile Include="Devices\CameraLink\DalsaCameraLink.cs" />
     <Compile Include="Devices\IOModule\IOTool.cs" />
     <Compile Include="Devices\KeyenceDistanceSensor\DistanceSensor.cs" />
+    <Compile Include="Devices\MotionControl\DeltaController\DeltaController.cs" />
+    <Compile Include="Devices\MotionControl\DeltaController\DeltaControllerChannel.cs" />
+    <Compile Include="Devices\MotionControl\DeltaController\DeltaEtherCAT.cs" />
     <Compile Include="Devices\MotionControl\DeltaController\DeltaEtherCATAxis.cs" />
     <Compile Include="Devices\MotionControl\IAIController\UI\AxisPanelWindow.xaml.cs">
       <DependentUpon>AxisPanelWindow.xaml</DependentUpon>

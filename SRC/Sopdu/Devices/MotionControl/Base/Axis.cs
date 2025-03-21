@@ -242,7 +242,7 @@ namespace Sopdu.Devices.MotionControl.Base
             private set;
         }
 
-        public void AlarmReset(bool isAutoOp = false)
+        public virtual void AlarmReset(bool isAutoOp = false)
         {
             bIsEnable = false;
             bool result = SetCommand(AxisCommand.AlarmReset_Start);
@@ -305,7 +305,7 @@ namespace Sopdu.Devices.MotionControl.Base
             }
         }
 
-        public void ServoOff(bool isAutoOp = false)
+        public virtual void ServoOff(bool isAutoOp = false)
         {
             bIsEnable = false;
 
@@ -343,7 +343,7 @@ namespace Sopdu.Devices.MotionControl.Base
                 opBrake.SetOutput(true);
         }
 
-        public void StartHomeSearch(bool bEMOExit, bool isAutoOp = false)
+        public virtual void StartHomeSearch(bool bEMOExit, bool isAutoOp = false)
         {
             bIsEnable = false;
             bool result = SetCommand(AxisCommand.HomeSearchStart);
@@ -371,35 +371,35 @@ namespace Sopdu.Devices.MotionControl.Base
             }
         }
 
-        public void StartJogNegative(bool isAutoOp = false)
-        {
-            bIsEnable = false;
-            bool result = SetCommand(AxisCommand.JogNegative);
-            result = WaitMsgRx(2000);
-            CommandSetEvent.Reset();
-            CommandDoneEvent.Reset();
-            bIsEnable = true;
-            if (!result)
-            {
-                throw new Exception("StartJogNegative Failed");
-            }
-        }
+        //public virtual void StartJogNegative(bool isAutoOp = false)
+        //{
+        //    bIsEnable = false;
+        //    bool result = SetCommand(AxisCommand.JogNegative);
+        //    result = WaitMsgRx(2000);
+        //    CommandSetEvent.Reset();
+        //    CommandDoneEvent.Reset();
+        //    bIsEnable = true;
+        //    if (!result)
+        //    {
+        //        throw new Exception("StartJogNegative Failed");
+        //    }
+        //}
 
-        public void StartJogPositive(bool isAutoOp = false)
-        {
-            bIsEnable = false;
-            bool result = SetCommand(AxisCommand.JogPositive);
-            result = WaitMsgRx(2000);
-            CommandSetEvent.Reset();
-            CommandDoneEvent.Reset();
-            bIsEnable = true;
-            if (!result)
-            {
-                throw new Exception("StartJogPositive Failed");
-            }
-        }
+        //public virtual void StartJogPositive(bool isAutoOp = false)
+        //{
+        //    bIsEnable = false;
+        //    bool result = SetCommand(AxisCommand.JogPositive);
+        //    result = WaitMsgRx(2000);
+        //    CommandSetEvent.Reset();
+        //    CommandDoneEvent.Reset();
+        //    bIsEnable = true;
+        //    if (!result)
+        //    {
+        //        throw new Exception("StartJogPositive Failed");
+        //    }
+        //}
 
-        public void StartMove(int positionNumber, bool isAutoOp = false)
+        public virtual void StartMove(int positionNumber, bool isAutoOp = false)
         {
             bIsEnable = false;
             AxisPosition oldPosition = CurrentPosition;
@@ -418,7 +418,7 @@ namespace Sopdu.Devices.MotionControl.Base
             }
         }
 
-        public void StartMove(AxisPosition position, bool isAutoOp = false)
+        public virtual void StartMove(AxisPosition position, bool isAutoOp = false)
         {
             bIsEnable = false;
             AxisPosition oldPosition = CurrentPosition;
@@ -437,7 +437,7 @@ namespace Sopdu.Devices.MotionControl.Base
             }            
         }
 
-        public bool StartMove_(AxisPosition position, bool isAutoOp = false)
+        public virtual bool StartMove_(AxisPosition position, bool isAutoOp = false)
         {
             bIsEnable = false;
             AxisPosition oldPosition = CurrentPosition;
@@ -456,7 +456,7 @@ namespace Sopdu.Devices.MotionControl.Base
             return true;
         }
 
-        public void SetModBusOn()//internal function
+        public virtual void SetModBusOn()//internal function
         {
             bIsEnable = false;
             bool result = SetCommand(AxisCommand.ModBusOn);
@@ -468,7 +468,7 @@ namespace Sopdu.Devices.MotionControl.Base
             bIsEnable = true;
         }
 
-        public void SetModBusOff()//internal function
+        public virtual void SetModBusOff()//internal function
         {
             bIsEnable = false;
             bool result = SetCommand(AxisCommand.ModBusOff);
@@ -536,7 +536,7 @@ namespace Sopdu.Devices.MotionControl.Base
             throw new TimeoutException();
         }
 
-        private bool SetCommand(AxisCommand command)
+        public virtual bool SetCommand(AxisCommand command)
         {
             if (Command == AxisCommand.None)
             {
@@ -553,7 +553,7 @@ namespace Sopdu.Devices.MotionControl.Base
             return false;
         }
 
-        private bool WaitMsgRx(int timeout)
+        protected virtual bool WaitMsgRx(int timeout)
         {
             if (CommandDoneEvent.WaitOne(1000))//this is activated once command is tx to rs232 via pconcontroller
             {

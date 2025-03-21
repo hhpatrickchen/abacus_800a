@@ -1,7 +1,9 @@
 ﻿using Sopdu.Devices.MotionControl.Base;
+using Sopdu.Devices.MotionControl.DeltaController;
 using Sopdu.Devices.MotionControl.DeltaEtherCAT;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +30,19 @@ namespace Sopdu.Devices.MotionControl.IAIController.UI
         }
         private void InitializeAxisPanel()
         {
-            Axis axis = new DeltaEtherCATAxis(new PConAxis.PconControllerChannel(""), 0); // 替換為具體的 Axis 實現類別
+            ushort CardNo = 0;
+            ushort nodeID = 0;
+            ushort slotNo = 0;
+            byte axisNumber = 0;
+            Axis axis = new DeltaEtherCATAxis(new DeltaControllerChannel(CardNo, nodeID, slotNo), axisNumber); // 替換為具體的 Axis 實現類別
 
             axis.bIsEnable = true;
+
+            axis.DisplayName = "Test Name";
+            //load axis position
+            axis.PositionFilePath = @".\Positions\" + "MP1" + ".zip";
+            axis.ReadPositionFile();
+
             this.DataContext = axis;
          
         }

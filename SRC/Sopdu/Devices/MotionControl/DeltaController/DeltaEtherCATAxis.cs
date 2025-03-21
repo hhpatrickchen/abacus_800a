@@ -1,4 +1,5 @@
 using Sopdu.Devices.MotionControl.Base;
+using Sopdu.Devices.MotionControl.DeltaController;
 using Sopdu.Devices.MotionControl.IAIController.PConAxis;
 using Sopdu.helper;
 using System;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.Runtime.Remoting.Channels;
 using System.Threading;
 using System.Xml.Serialization;
+using static Sopdu.Devices.MotionControl.DeltaController.DeltaEtherCAT;
 
 namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
 {
@@ -17,14 +19,14 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
 
         //protected static const float G_CONSTANT = 9806.65F;
 
-        private PconModbus.Status _rawStatus;
+        private ControlWordStatus _rawStatus;
 
-        private PconControllerChannel channel;
+        private DeltaControllerChannel channel;
 
         [XmlIgnore]
         public bool bModbusActive;
 
-        public DeltaEtherCATAxis(PconControllerChannel channel, byte axisNumber)
+        public DeltaEtherCATAxis(DeltaControllerChannel channel, byte axisNumber)
             : base()
         {
             this.channel = channel;
@@ -38,11 +40,11 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
         [XmlIgnore]
         public override string Name
         {
-            get { return "DeltaControllerAxis_" + channel.COMAddress + "_" + AxisNumber; }
+            get { return "DeltaControllerAxis_" + channel.Name + "_" + AxisNumber; }
         }
 
         [XmlIgnore]
-        public PconModbus.Status RawStatus
+        public ControlWordStatus RawStatus
         {
             get { return _rawStatus; }
             set
@@ -82,7 +84,68 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
 
         public override void ServoOn(bool bEMOExit, bool isAutoOp = false)
         {
+            
             Console.WriteLine("ServoOn");
+
+            bIsEnable = false;
+            CommandDoneEvent.Reset();
+            bool result = SetCommand(AxisCommand.ServoOn);
+            result = WaitMsgRx(2000);
+            CommandSetEvent.Reset();
+            CommandDoneEvent.Reset();
+            bIsEnable = true;
+            if (!result)
+            {
+                throw new Exception("ServoOn Failed");
+            }
+
+            if (opBrake != null)
+                opBrake.SetOutput(true);
+
+
+        }
+
+        public override void AlarmReset(bool isAutoOp = false)
+        {
+            Console.WriteLine("AlarmReset");
+        }
+
+        public override void ServoOff(bool isAutoOp = false)
+        {
+            Console.WriteLine("ServoOff");
+        }
+
+        public override void StartHomeSearch(bool bEMOExit, bool isAutoOp = false)
+        {
+            Console.WriteLine("StartHomeSearch");
+        }
+
+
+
+        public override void StartMove(int positionNumber, bool isAutoOp = false)
+        {
+            Console.WriteLine($"StartMove positionNumber={positionNumber}");
+        }
+
+        public override void StartMove(AxisPosition position, bool isAutoOp = false)
+        {
+            Console.WriteLine($"StartMove positionNumber={position.ToString()}");
+        }
+
+        public override bool StartMove_(AxisPosition position, bool isAutoOp = false)
+        {
+            Console.WriteLine($"StartMove_ positionNumber={position.ToString()}");
+            return true;
+        }
+
+        public override void SetModBusOn()
+        {
+            Console.WriteLine("SetModBusOn");
+        }
+
+        public override void SetModBusOff()
+        {
+            Console.WriteLine("SetModBusOff");
         }
     }
 }

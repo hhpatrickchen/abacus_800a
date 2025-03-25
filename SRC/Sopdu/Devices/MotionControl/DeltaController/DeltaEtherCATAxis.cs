@@ -19,7 +19,7 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
 
         //protected static const float G_CONSTANT = 9806.65F;
 
-        private ControlWordStatus _rawStatus;
+        private EStatus _rawStatus;
 
         private DeltaControllerChannel channel;
 
@@ -44,30 +44,30 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
         }
 
         [XmlIgnore]
-        public ControlWordStatus RawStatus
+        public EStatus RawStatus
         {
             get { return _rawStatus; }
             set
             {
                 _rawStatus = value;
                 // Also update CurrentStatus
-                if (value.ALMH)
+                if (value.ERR_SERVOFF)
                 {
                     CurrentStatus = AxisStatus.Alarm;
                 }
-                else if (value.EMG)
+                else if (value.IM_STOP)
                 {
                     CurrentStatus = AxisStatus.EStopped;
                 }
-                else if (!value.SV)
+                else if (!value.SERVON_DONE)
                 {
                     CurrentStatus = AxisStatus.ServoOff;
                 }
-                else if (!value.HEND)
+                else if (!value.ALLOW_OP)
                 {
                     CurrentStatus = AxisStatus.Uninitialized;
                 }
-                else if (!value.PEND)
+                else if (!value.IN_POS)
                 {
                     CurrentStatus = AxisStatus.Moving;
                 }
@@ -75,11 +75,50 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
                 {
                     CurrentStatus = AxisStatus.Ready;
                 }
-                if (value.PEND == true)
+                if (value.IN_POS == true)
                     PositionEnd = true;
-                if (value.PEND == false)
+                if (value.IN_POS == false)
                     PositionEnd = false;
             }
+        }
+
+        public enum ControlWordBit : byte
+        {
+            ENABLE = 0,
+            PWR = 1,
+            IM_STOP = 2,
+            SERVON = 3,
+            HEND = 4,
+            OP_MODE_RSV1 = 5,
+            OP_MODE_RSV2 = 6,
+            OP_MODE_RSV3 = 7,
+            PAUSE = 8,
+            RSV1 = 9,
+            RSV2 = 10,
+            RSV3 = 11,
+            RSV4 = 12,
+            RSV5 = 13,
+            RSV6 = 14,
+            RSV7 = 15,
+        }
+        public enum EStatusdBit : byte
+        {
+            EN_STATUS = 0,
+            ALLOW_OP = 1,
+            SERVON_DONE = 2,
+            ERR_SERVOFF = 3,
+            PWR = 4,
+            IM_STOP = 5,
+            NO_ALLOW_OP = 6,
+            WARN = 7,
+            RSV1 = 8,
+            CONNECT = 9,
+            IN_POS = 10,
+            LMT_SOR = 11, //驅動器極限觸發狀態，台達驅動器不支援本功能
+            OP_MODE_RSV1 = 12,
+            OP_MODE_RSV2 = 13,
+            RSV2 = 14,
+            RSV3 = 15,
         }
 
         public override void ServoOn(bool bEMOExit, bool isAutoOp = false)

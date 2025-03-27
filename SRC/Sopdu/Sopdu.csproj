@@ -222,6 +222,9 @@
     <Compile Include="Devices\MotionControl\DeltaController\DeltaEtherCATAxis.cs" />
     <Compile Include="Devices\MotionControl\DeltaController\EtherCAT_DLL_Err.cs" />
     <Compile Include="Devices\MotionControl\DeltaController\EtherCAT_DLL_x64.cs" />
+    <Compile Include="Devices\MotionControl\IAIController\UI\AxisPanelDelta.xaml.cs">
+      <DependentUpon>AxisPanelDelta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Devices\MotionControl\IAIController\UI\AxisPanelWindow.xaml.cs">
       <DependentUpon>AxisPanelWindow.xaml</DependentUpon>
     </Compile>
@@ -396,6 +399,10 @@
     <Compile Include="UI\testform.Designer.cs">
       <DependentUpon>testform.cs</DependentUpon>
     </Compile>
+    <Page Include="Devices\MotionControl\IAIController\UI\AxisPanelDelta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Devices\MotionControl\IAIController\UI\AxisPanelWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

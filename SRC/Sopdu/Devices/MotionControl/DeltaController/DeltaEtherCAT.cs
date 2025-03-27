@@ -1,4 +1,5 @@
-﻿using EtherCAT_DLL_Err;
+﻿using Cognex.VisionPro.Exceptions;
+using EtherCAT_DLL_Err;
 using EtherCAT_DLL_x64;
 using Sopdu.Devices.MotionControl.DeltaEtherCAT;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
 using static Sopdu.Devices.MotionControl.DeltaEtherCAT.DeltaEtherCATAxis;
 
@@ -162,38 +164,53 @@ namespace Sopdu.Devices.MotionControl.DeltaController
         }
 
         internal int ModBusOn(DeltaEtherCATAxis axis)
-        {
-            throw new NotImplementedException();
+        {            
+            axis.SetModBusOn();
+            return 0;
         }
 
         internal int ModBusOff(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            axis.SetModBusOff();
+            return 0;
         }
 
         internal int ServoOn(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            int ret = 0;
+            Console.WriteLine($"ServoOn={ret}");
+            return ret;
         }
 
         internal int ServoOff(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            int ret = 0;
+            Console.WriteLine($"ServoOff={ret}");
+            return ret;
         }
 
         internal int HomeSearchStart(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            int ret = 0;
+            Console.WriteLine($"HomeSearchStart={ret}");
+            Thread.Sleep(200);
+            return ret;
         }
 
         internal int HomeSearchEnd(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            int ret = 0;
+            Console.WriteLine($"HomeSearchEnd={ret}");
+            Thread.Sleep(200);
+            return ret;
         }
 
         internal int Move(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            int ret = 0;
+            Console.WriteLine($"Move={ret}");
+            Thread.Sleep(200);
+            return ret;
         }
 
         internal int JogPositive(DeltaEtherCATAxis axis)
@@ -208,28 +225,45 @@ namespace Sopdu.Devices.MotionControl.DeltaController
 
         internal int DecelerationStop(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            ushort ret = 0;
+            Console.WriteLine($"DecelerationStop={ret}");
+            return ret;
         }
 
         internal int Stop(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            ushort ret = 0;
+            Console.WriteLine($"Stop={ret}");
+            return ret;
         }
 
-        internal int AlarmReset(DeltaEtherCATAxis axis)
+        internal int AlarmReset_Start(DeltaEtherCATAxis axis)
         {
-            throw new NotImplementedException();
+            ushort ret = 0;
+            Console.WriteLine($"AlarmReset_Start={ret}");
+            Thread.Sleep(100);
+            return ret;
+        }
+        internal int AlarmReset_End(DeltaEtherCATAxis axis)
+        {
+            ushort ret = 0;
+            Console.WriteLine($"AlarmReset_End={ret}");
+            Thread.Sleep(100);
+            return ret;
         }
 
         internal ushort GetControlStatus()
         {
-            throw new NotImplementedException();
+            ushort ret = 0x4;
+            //Console.WriteLine($"GetControlStatus={ret}");
+            return ret;
         }
 
         internal double GetCurrentPosition()
         {
-            int nPos = 0;
-            CEtherCAT_DLL.CS_ECAT_Slave_Motion_Get_Position(g_uESCCardNo, g_uESCNodeID, g_uESCSlotID, ref nPos);
+            int nPos = 100;
+            Console.WriteLine($"GetCurrentPosition={nPos}");
+            //CEtherCAT_DLL.CS_ECAT_Slave_Motion_Get_Position(g_uESCCardNo, g_uESCNodeID, g_uESCSlotID, ref nPos);
             return nPos;
         }
 

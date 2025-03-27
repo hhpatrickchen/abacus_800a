@@ -23,6 +23,7 @@ namespace Sopdu.Devices.MotionControl.IAIController.UI
     /// </summary>
     public partial class AxisPanelWindow : Window
     {
+        DeltaController.DeltaController deltaController;
         public AxisPanelWindow()
         {
             InitializeComponent();
@@ -34,17 +35,26 @@ namespace Sopdu.Devices.MotionControl.IAIController.UI
             ushort nodeID = 0;
             ushort slotNo = 0;
             byte axisNumber = 0;
-            Axis axis = new DeltaEtherCATAxis(new DeltaControllerChannel(CardNo, nodeID, slotNo), axisNumber); // 替換為具體的 Axis 實現類別
 
-            axis.bIsEnable = true;
+            deltaController = new DeltaController.DeltaController();
+            
+            deltaController.MotorAxis = new DeltaEtherCATAxis(new DeltaControllerChannel(CardNo, nodeID, slotNo), axisNumber); // 替換為具體的 Axis 實現類別
+            deltaController.Init(CardNo, nodeID, slotNo);
 
-            axis.DisplayName = "Test Name";
+            deltaController.MotorAxis.bIsEnable = true;
+
+            deltaController.MotorAxis.DisplayName = "Test Name";
             //load axis position
-            axis.PositionFilePath = @".\Positions\" + "MP1" + ".zip";
-            axis.ReadPositionFile();
-
-            this.DataContext = axis;
+            deltaController.MotorAxis.PositionFilePath = @".\Positions\" + "MP1" + ".zip";
+            deltaController.MotorAxis.ReadPositionFile();
+            
+            this.DataContext = deltaController.MotorAxis;
          
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            deltaController.Shutdown();
         }
     }
 }

@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sopdu.Devices.MotionControl.IAIController.UI"
         mc:Ignorable="d"
-        Title="AxisPanelWindow" Height="450" Width="800">
+        Title="AxisPanelWindow" Height="450" Width="800" Closed="Window_Closed">
     <Grid>
-        <local:AxisPanel />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500*"/>
+            <ColumnDefinition Width="301*"/>
+        </Grid.ColumnDefinitions>
+        <local:AxisPanelDelta Grid.ColumnSpan="2" />
     </Grid>
 </Window>

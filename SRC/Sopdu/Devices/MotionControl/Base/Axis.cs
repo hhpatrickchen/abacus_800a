@@ -250,7 +250,7 @@ namespace Sopdu.Devices.MotionControl.Base
             CommandSetEvent.Reset();
             CommandDoneEvent.Reset();
             //CommandCompleteEvent.Reset();
-            Thread.Sleep(100);
+            Thread.Sleep(500);
             result = SetCommand(AxisCommand.AlarmReset_End);
             result = WaitMsgRx(5000);
             CommandSetEvent.Reset();
@@ -350,7 +350,7 @@ namespace Sopdu.Devices.MotionControl.Base
             result = WaitMsgRx(5000);//wait for the same command to appear...
             CommandSetEvent.Reset();
             CommandDoneEvent.Reset();
-            Thread.Sleep(100);
+            Thread.Sleep(500); //from 100 to 500
             //CommandCompleteEvent.Reset();
             CurrentStatus = AxisStatus.Initializing;
             result = SetCommand(AxisCommand.HomeSearchEnd);

@@ -144,47 +144,56 @@ namespace Sopdu.Devices.MotionControl.DeltaEtherCAT
 
         }
 
-        public override void AlarmReset(bool isAutoOp = false)
-        {
-            Console.WriteLine("AlarmReset");
-        }
+        //public override void AlarmReset(bool isAutoOp = false)
+        //{
+        //    Console.WriteLine("AlarmReset");
+        //}
 
-        public override void ServoOff(bool isAutoOp = false)
-        {
-            Console.WriteLine("ServoOff");
-        }
+        //public override void ServoOff(bool isAutoOp = false)
+        //{
+        //    Console.WriteLine("ServoOff");
+        //}
 
-        public override void StartHomeSearch(bool bEMOExit, bool isAutoOp = false)
-        {
-            Console.WriteLine("StartHomeSearch");
-        }
+        //public override void StartHomeSearch(bool bEMOExit, bool isAutoOp = false)
+        //{
+        //    Console.WriteLine("StartHomeSearch");
+        //}
 
 
 
-        public override void StartMove(int positionNumber, bool isAutoOp = false)
-        {
-            Console.WriteLine($"StartMove positionNumber={positionNumber}");
-        }
+        //public override void StartMove(int positionNumber, bool isAutoOp = false)
+        //{
+        //    Console.WriteLine($"StartMove positionNumber={positionNumber}");
+        //}
 
-        public override void StartMove(AxisPosition position, bool isAutoOp = false)
-        {
-            Console.WriteLine($"StartMove positionNumber={position.ToString()}");
-        }
+        //public override void StartMove(AxisPosition position, bool isAutoOp = false)
+        //{
+        //    Console.WriteLine($"StartMove positionNumber={position.ToString()}");
+        //}
 
-        public override bool StartMove_(AxisPosition position, bool isAutoOp = false)
-        {
-            Console.WriteLine($"StartMove_ positionNumber={position.ToString()}");
-            return true;
-        }
+        //public override bool StartMove_(AxisPosition position, bool isAutoOp = false)
+        //{
+        //    Console.WriteLine($"StartMove_ positionNumber={position.ToString()}");
+        //    return true;
+        //}
 
-        public override void SetModBusOn()
-        {
-            Console.WriteLine("SetModBusOn");
-        }
+        //public override void SetModBusOn()
+        //{
+        //    Console.WriteLine("SetModBusOn");
+        //    bIsEnable = false;
+        //    bool result = SetCommand(AxisCommand.ModBusOn);
+        //    bIsEnable = true;
 
-        public override void SetModBusOff()
-        {
-            Console.WriteLine("SetModBusOff");
-        }
+            
+        //}
+
+        //public override void SetModBusOff()
+        //{
+        //    Console.WriteLine("SetModBusOff");
+        //    bIsEnable = false;
+        //    bool result = SetCommand(AxisCommand.ModBusOff);
+        //    bIsEnable = true;
+            
+        //}
     }
 }

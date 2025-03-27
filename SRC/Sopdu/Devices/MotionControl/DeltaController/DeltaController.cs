@@ -73,8 +73,8 @@ namespace Sopdu.Devices.MotionControl.DeltaController
             //start thread//
             seqend = false;
 
-            MonitorThread = new Thread(new ThreadStart(MonitorThreadFn));
-            MonitorThread.Start();
+            //MonitorThread = new Thread(new ThreadStart(MonitorThreadFn));
+            //MonitorThread.Start();
             CmdSendThread = new Thread(new ThreadStart(CmdSendThreadFn));
             CmdSendThread.Start();
             return 1;
@@ -295,7 +295,7 @@ namespace Sopdu.Devices.MotionControl.DeltaController
                 }
                 catch (Exception ex)
                 { }
-                Thread.Sleep(50);
+                Thread.Sleep(10);
             }
         }
         public void SetPConInit()
@@ -352,11 +352,9 @@ namespace Sopdu.Devices.MotionControl.DeltaController
                 case AxisCommand.HomeSearchStart:
                     result = this.deltaEthercat.HomeSearchStart(axis);
                     axis.CommandDoneEvent.Set();
-
                     break;
 
                 case AxisCommand.HomeSearchEnd:
-
                     result = this.deltaEthercat.HomeSearchEnd(axis);
                     axis.CommandDoneEvent.Set();
                     break;
@@ -385,18 +383,20 @@ namespace Sopdu.Devices.MotionControl.DeltaController
                         axis.CommandDoneEvent.Set();
                     }
                     break;
-
  
-
                 case AxisCommand.Stop:
-                    result = this.deltaEthercat.Stop(axis);
-            
+                    result = this.deltaEthercat.Stop(axis);            
                     break;
 
                 case AxisCommand.AlarmReset_Start:
-                    result = this.deltaEthercat.AlarmReset(axis);
+                    result = this.deltaEthercat.AlarmReset_Start(axis);
+                    axis.CommandDoneEvent.Set();                    
+                    break;
+                case AxisCommand.AlarmReset_End:
+                    result = this.deltaEthercat.AlarmReset_End(axis);
                     axis.CommandDoneEvent.Set();
                     break;
+                    
 
 
             }
